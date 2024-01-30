@@ -1,40 +1,78 @@
 import React from "react";
 import ReactDOM from "react-dom";
 
-// ● Create a Nested header Element using React.createElement(h1,h2,h3 inside a
-//   div with class “title”)
-//   ○ Create the same element using JSX
-//   ○ Create a functional component of the same with JSX
-//   ○ Pass attributes into the tag in JSX
-//   ○ Composition of Component(Add a component inside another)
-//   ○ {TitleComponent} vs {<TitleComponent/>} vs
-//   {<TitleComponent></TitleComponent>} in JSX
-
-// const answer = React.createElement("div", {}, [
-//   React.createElement("h1", {}, "H1 space"),
-//   React.createElement("h2", {}, "H2 space"),
-//   React.createElement("h2", {}, "H3 space"),
-// ]);
-
-const headerElement = (
-  <div>
-    <h1>H1 space</h1>
-    <h2>H2 space</h2>
-    <h3>H3 space</h3>
-  </div>
-);
-
-const Temp = () => {
-  return <h2>HE MAn</h2>;
-};
-
-const FunctionalComponent = () => {
+const Header = () => {
   return (
-    <>
-      <Temp></Temp>
-      {headerElement}
-    </>
+    <div className="header">
+      <div className="logo-container">
+        <img
+          className="logo"
+          src="https://image.similarpng.com/very-thumbnail/2021/09/Good-food-logo-design-on-transparent-background-PNG.png"
+        ></img>
+      </div>
+      <div className="nav-items">
+        <ul>
+          <li>Home</li>
+          <li>Contact</li>
+          <li>About</li>
+          <li>Cart</li>
+        </ul>
+      </div>
+    </div>
   );
 };
-const root = ReactDOM.createRoot(document.getElementById("root"));
-root.render(<FunctionalComponent />);
+
+const styleCard = {
+  backgroundColor: "#F0F0F0",
+};
+const Card = () => {
+  return (
+    <div className="card" style={styleCard}>
+      <img
+        className="card-image"
+        src="https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp"
+      ></img>
+      <h3>Papaji Dhaba</h3>
+      <h4>Speciality : Reshmi kabab</h4>
+      <h4>5 star</h4>
+    </div>
+  );
+};
+const Body = () => {
+  return (
+    // <div className="body">
+    <>
+      <div className="search">Search</div>
+      <div className="card-container">
+        <Card />
+        <Card />
+        <Card />
+      </div>
+    </>
+    // </div>
+  );
+};
+const Footer = () => {
+  return (
+    <div className="footer">
+      <ul>
+        <li>fb</li>
+        <li>if</li>
+        <li>snap</li>
+        <li>whatsapp</li>
+      </ul>
+    </div>
+  );
+};
+const AppLayout = () => {
+  return (
+    <div className="App">
+      <Header />
+      <Body />
+      <Footer />
+    </div>
+  );
+};
+
+const root = ReactDOM.createRoot(document.getElementById("root")); // NOTE : document.getElementById
+root.render(<AppLayout />); // NOTE this! How did you add the component name to render method
