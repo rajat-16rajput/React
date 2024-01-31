@@ -1,5 +1,5 @@
 import React from "react";
-import ReactDOM from "react-dom";
+import ReactDOM from "react-dom/client";
 
 const Header = () => {
   return (
@@ -25,28 +25,94 @@ const Header = () => {
 const styleCard = {
   backgroundColor: "#F0F0F0",
 };
-const Card = () => {
+
+const Hotels = [
+  {
+    id: 1,
+    name: "Papaji Dhaba",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+
+  {
+    id: 2,
+    name: "Nilofer Cafe",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+  {
+    id: 3,
+    name: "Cafe goodluck",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+  {
+    id: 4,
+    name: "Shipra Regency",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+  {
+    id: 5,
+    name: "Paradise Biryani",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+  {
+    id: 6,
+    name: "Bird Valley ",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+  {
+    id: 7,
+    name: "Papaji Dhaba",
+    speciality: "Reshmi kabab",
+    starRating: "5",
+    imgLocn:
+      "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
+  },
+];
+
+const Card = (props) => {
+  const { resData } = props; // {props object is getting {another object} in it from its parent} So we destructure the resData object and assign to a key variable having the same name resData.
+  // console.log(JSON.stringify(props));// converts object for readability
+  // console.log(props.speciality);
+
+  // destructuring resData and making hecode clean
+  const { imgLocn, name, speciality, starRating } = resData;
+
   return (
     <div className="card" style={styleCard}>
-      <img
-        className="card-image"
-        src="https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp"
-      ></img>
-      <h3>Papaji Dhaba</h3>
-      <h4>Speciality : Reshmi kabab</h4>
-      <h4>5 star</h4>
+      <img className="card-image" src={imgLocn}></img>
+      <h3>{name}</h3>
+      <h4>Speciality : {speciality}</h4>
+      <h4>{starRating} star</h4>
     </div>
   );
 };
 const Body = () => {
+  const hotelType = "Cafe";
   return (
     // <div className="body">
     <>
       <div className="search">Search</div>
       <div className="card-container">
-        <Card />
-        <Card />
-        <Card />
+        {Hotels.map((hotel) => (
+          <Card key={hotel.id} resData={hotel} />
+        ))}
       </div>
     </>
     // </div>
