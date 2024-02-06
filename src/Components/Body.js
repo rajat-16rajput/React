@@ -1,44 +1,12 @@
-import { Hotels } from "../Utils/mockData";
 import { SWIGGY_API } from "../Utils/constants";
 import { useState, useEffect } from "react";
+import Shimmer from "./Shimmer";
 import Card from "./Card";
 const Body = () => {
-  const [listofHotels, setListOfHotels] = useState([
-    {
-      id: 1,
-      name: "Papaji Dhaba",
-      speciality: "Reshmi kabab",
-      starRating: "5",
-      imgLocn:
-        "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
-    },
+  const [listofHotels, setListOfHotels] = useState([]);
 
-    {
-      id: 2,
-      name: "Nilofer Cafe",
-      speciality: "Reshmi kabab",
-      starRating: "5",
-      imgLocn:
-        "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
-    },
-    {
-      id: 3,
-      name: "Cafe goodluck",
-      speciality: "Reshmi kabab",
-      starRating: "5",
-      imgLocn:
-        "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
-    },
-    {
-      id: 4,
-      name: "Shipra Regency",
-      speciality: "Reshmi kabab",
-      starRating: "2",
-      imgLocn:
-        "https://files.yappe.in/place/full/sagar-papaji-ka-dhaba-1772279.webp",
-    },
-  ]);
   useEffect(() => {
+    console.log("use Effect called");
     fetchData();
   }, []);
 
@@ -46,9 +14,9 @@ const Body = () => {
     const data = await fetch(SWIGGY_API);
     const json = await data.json();
 
-    // setListOfHotels(
-    //   json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
-    // );
+    setListOfHotels(
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+    );
     // console.log(listofHotels);
   };
 
@@ -59,9 +27,10 @@ const Body = () => {
           className="filter-button"
           onClick={() => {
             const filteredList = listofHotels.filter(
-              (element) => element.starRating > 3
+              (element) => element.info.avgRating > 4
             );
-            // console.log(filteredList);
+            console.log(listofHotels);
+            console.log(filteredList);
             setListOfHotels(filteredList);
           }}
         >
@@ -69,8 +38,8 @@ const Body = () => {
         </button>
       </div>
       <div className="card-container">
-        {listofHotels.map((resData) => (
-          <Card key={resData.id} resData={resData} />
+        {listofHotels.map((resObj) => (
+          <Card key={resObj.id} resObj={resObj} />
         ))}
       </div>
     </>
