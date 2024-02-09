@@ -2,7 +2,7 @@ import { styleCard } from "../Utils/constants";
 
 const Card = (props) => {
   const { resObj } = props;
-  console.log({ props });
+  //console.log({ props });
   const { name, cuisines, avgRating, cloudinaryImageId, locality } =
     resObj?.info;
   return (
@@ -14,8 +14,9 @@ const Card = (props) => {
           cloudinaryImageId
         }
       ></img>
-      <h3>{locality}</h3>
+
       <h3>{name}</h3>
+      <h3>{locality}</h3>
       <h4> {cuisines.join(" ")}</h4>
       <h4>{avgRating} star</h4>
     </div>
