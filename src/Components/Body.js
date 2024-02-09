@@ -2,6 +2,7 @@ import { SWIGGY_API } from "../Utils/constants";
 import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import Card from "./Card";
+import { Link } from "react-router-dom";
 const Body = () => {
   const [listofHotels, setListOfHotels] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -10,18 +11,18 @@ const Body = () => {
     console.log("use Effect called");
     fetchData();
   }, []);
-
+  console.log("Use State" + useState());
   fetchData = async () => {
     const data = await fetch(SWIGGY_API);
     const json = await data.json();
 
     setListOfHotels(
-      json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
     setSearchList(
-      json?.data?.cards[3]?.card?.card?.gridElements?.infoWithStyle?.restaurants
+      json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
-    console.log(listofHotels);
+    //console.log(listofHotels);
   };
 
   return (
@@ -66,7 +67,9 @@ const Body = () => {
       <div className="card-container">
         {/* displaying the searchlist */}
         {searchList.map((resObj) => (
-          <Card key={resObj.id} resObj={resObj} />
+          <Link key={resObj.info.id} to={"/restaurant/" + resObj.info.id}>
+            <Card resObj={resObj} />
+          </Link>
         ))}
       </div>
     </>

@@ -91,3 +91,8 @@
   width: 80px;
   cursor: pointer;
 }
+
+.RestaurantMenu {
+  border: 1px solid black;
+  width: 300px;
+}
