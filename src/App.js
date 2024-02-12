@@ -1,4 +1,4 @@
-import React from "react";
+import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
@@ -13,12 +13,15 @@ import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
+//import Groceries from "./Components/Groceries";
 
+const Groceries = lazy(() => import("./Components/Groceries"));
 const AppLayout = () => {
   return (
     <div className="App">
       <Header />
-      <Outlet /> {/*Replaced by the child route */}
+      {/*Replaced by the child route. The "dynamic outlet" will render the appropriate child component based on the current route. */}
+      <Outlet />
       <Footer />
     </div>
   );
@@ -28,9 +31,20 @@ const appRouter = createBrowserRouter([
   {
     path: "/",
     element: <AppLayout />,
+
+    //if the path is incorrect
     errorElement: <Error />,
-    //creating children routes
+
+    //creating children routes which will dyanamically map and one of them will replace to the <Outlet/> component based on the path
     children: [
+      {
+        path: "/groceries",
+        element: (
+          <Suspense fallback={<>Loading...</>}>
+            <Groceries />
+          </Suspense>
+        ),
+      },
       {
         path: "/",
         element: <Body />,
@@ -44,6 +58,7 @@ const appRouter = createBrowserRouter([
         element: <Contact />,
       },
       {
+        //dyanamic routing ----> /restaurant/:resId<-- this value will be dyanamic
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
       },

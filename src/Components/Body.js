@@ -3,15 +3,17 @@ import { useState, useEffect } from "react";
 import Shimmer from "./Shimmer";
 import Card from "./Card";
 import { Link } from "react-router-dom";
+import useOnlineStatus from "../Utils/useOnlineStatus";
 const Body = () => {
   const [listofHotels, setListOfHotels] = useState([]);
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState([]);
+
+  //useEffect always contain a callBack function and a dependency array
   useEffect(() => {
-    console.log("use Effect called");
     fetchData();
   }, []);
-  console.log("Use State" + useState());
+
   fetchData = async () => {
     const data = await fetch(SWIGGY_API);
     const json = await data.json();
@@ -25,13 +27,19 @@ const Body = () => {
     //console.log(listofHotels);
   };
 
+  const onlineStatus = useOnlineStatus();
+  if (onlineStatus === "false")
+    return <h1>No internet connected, please check your connection</h1>;
+
   return (
     <>
       <div>
         <input
           type="text"
           className="search-box"
+          // value={searchText}: Binds the value of the input field to the state variable searchText. This means that the value displayed in the input field is controlled by the searchText state variable.
           value={searchText}
+          //onChangefunction takes in a anonymous function with e as a parameter which is the input provided by the user
           onChange={(e) => {
             setSearchText(e.target.value); //component will re render with every letter typed
           }}
