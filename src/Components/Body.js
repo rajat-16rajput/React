@@ -1,7 +1,7 @@
 import { SWIGGY_API } from "../Utils/constants";
 import { useState, useEffect } from "react";
-import Shimmer from "./Shimmer";
-import Card from "./Card";
+
+import Card, { withOpenLabel } from "./Card";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../Utils/useOnlineStatus";
 const Body = () => {
@@ -9,6 +9,11 @@ const Body = () => {
   const [searchText, setSearchText] = useState("");
   const [searchList, setSearchList] = useState([]);
 
+  //console.log("listofHotels : ", listofHotels);
+  //withOpenLabel is a HOC which contains Card as a parameter. It will return us a new component which has a label inside it
+  const CardPromoted = withOpenLabel(Card);
+
+  console.log({ listofHotels });
   //useEffect always contain a callBack function and a dependency array
   useEffect(() => {
     fetchData();
@@ -33,50 +38,62 @@ const Body = () => {
 
   return (
     <>
-      <div>
-        <input
-          type="text"
-          className="search-box"
-          // value={searchText}: Binds the value of the input field to the state variable searchText. This means that the value displayed in the input field is controlled by the searchText state variable.
-          value={searchText}
-          //onChangefunction takes in a anonymous function with e as a parameter which is the input provided by the user
-          onChange={(e) => {
-            setSearchText(e.target.value); //component will re render with every letter typed
-          }}
-        ></input>
-        <button
-          className="search-btn"
-          onClick={() => {
-            //It will filter from the original list of restaurants if matching case found then it will update the search list from the list of hotels
-            const filteredRestaurant = listofHotels.filter((element) =>
-              element.info.name.toLowerCase().includes(searchText.toLowerCase())
-            );
-            setSearchList(filteredRestaurant);
-          }}
-        >
-          Search
-        </button>
-
-        <button
-          className="filter-button"
-          onClick={() => {
-            const filteredList = listofHotels.filter(
-              (element) => element.info.avgRating > 4
-            );
-            {
-              /* displaying the searchlist */
-            }
-            setSearchList(filteredList);
-          }}
-        >
-          top restauants
-        </button>
+      <div className="body">
+        <div className="flex ">
+          <div className="search m-4 p-4">
+            <input
+              type="text"
+              className="border border-solid border-black"
+              // value={searchText}: Binds the value of the input field to the state variable searchText. This means that the value displayed in the input field is controlled by the searchText state variable.
+              value={searchText}
+              //onChangefunction takes in an anonymous function with e as a parameter which is the input provided by the user
+              onChange={(e) => {
+                setSearchText(e.target.value); //component will re render with every letter typed
+              }}
+            ></input>
+            <button
+              className="px-4 py-1 bg-green-200 m-4 rounded-lg"
+              onClick={() => {
+                //It will filter from the original list of restaurants if matching case found then it will update the search list from the list of hotels
+                const filteredRestaurant = listofHotels.filter((element) =>
+                  element.info.name
+                    .toLowerCase()
+                    .includes(searchText.toLowerCase())
+                );
+                setSearchList(filteredRestaurant);
+              }}
+            >
+              Search
+            </button>
+          </div>
+          <div className="search ml-0 pl-0 flex items-center">
+            <button
+              className="px-4 py-2 bg-blue-200 rounded-lg"
+              onClick={() => {
+                const filteredList = listofHotels.filter(
+                  (element) => element.info.avgRating > 4
+                );
+                {
+                  /* displaying the searchlist */
+                }
+                setSearchList(filteredList);
+              }}
+            >
+              top restauants
+            </button>
+          </div>
+        </div>
       </div>
-      <div className="card-container">
+      <div className="card-container flex flex-wrap">
         {/* displaying the searchlist */}
         {searchList.map((resObj) => (
           <Link key={resObj.info.id} to={"/restaurant/" + resObj.info.id}>
-            <Card resObj={resObj} />
+            {/* If the restaurant is promoted add promoted label to it */}
+            {resObj.info.isOpen ? (
+              <CardPromoted resObj={resObj} />
+            ) : (
+              <Card resObj={resObj} />
+            )}
           </Link>
         ))}
       </div>

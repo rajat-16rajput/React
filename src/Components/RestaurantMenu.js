@@ -22,19 +22,19 @@ const RestaurantMenu = () => {
 
   return (
     <>
-      <div className="RestaurantMenu">
-        <h1>{name}</h1>
-        <h2>{areaName}</h2>
-        <h3>Menu</h3>
+      <div className="RestaurantMenu p-4 m-4 bg-yellow-200 ">
+        <h1 className="font-bold">{name}</h1>
+        <h2 className="font-mono">{areaName}</h2>
+        <h3 className="font-medium">Menu</h3>
         {/* {console.log("itemCards:", itemCards)} */}
         {itemCards.map((item) => (
-          <li key={item.card.info.id}>
+          <li className="font-serif" key={item.card.info.id}>
             {item.card.info.name} -
             {"Rs. " +
               (item.card.info.price / 100 || item.card.info.defaultPrice / 100)}
           </li>
         ))}
-        ;
+
         {/* <ul>{itemCards.map((item) => ({ name: item.card.info.name }))}</ul> */}
         {/* <h1>{name}</h1>
         <h3>{itemCards[0].card.info.name}</h3>

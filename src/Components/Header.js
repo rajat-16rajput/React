@@ -13,34 +13,38 @@ const Header = () => {
   const onlineStatus = useOnlineStatus();
 
   return (
-    <div className="header">
+    <div className="flex justify-between bg-orange-200 shadow-md mx-2">
       <div className="logo-container">
         <img
-          className="logo"
+          className="w-36"
           src="https://image.similarpng.com/very-thumbnail/2021/09/Good-food-logo-design-on-transparent-background-PNG.png"
           alt="Header Logo"
         ></img>
       </div>
-      <div className="nav-items">
-        <ul>
-          <li>Online Status : {onlineStatus === "true" ? "✅" : "❌"}</li>
-          <li>
+      <div className="flex items-center">
+        <ul className="flex p-4 m-4">
+          <li className="px-4 rounded-md bg-white p-1 m-1 hover:bg-slate-200">
+            Online Status : {onlineStatus === "true" ? "✅" : "❌"}
+          </li>
+          <li className="px-4 rounded-md bg-white p-1 m-1 hover:bg-slate-200">
             {/* When a user clicks on this link, the application will navigate to the URL specified in the to prop, which in this case is the home route /. This is done using the routing mechanism provided by react-router-dom, ensuring that the navigation happens without a full page reload, making it a single-page application (SPA) feature. */}
             <Link to="/">Home</Link>
           </li>
-          <li>
+          <li className="px-4 rounded-md bg-white p-1 m-1 hover:bg-slate-200">
             <Link to="/contact">Contact</Link>
           </li>
-          <li>
+          <li className="px-4 rounded-md bg-white p-1 m-1 hover:bg-slate-200">
             <Link to="/about">About</Link>
           </li>
-          <li>
+          <li className="px-4 rounded-md bg-white p-1 m-1 hover:bg-slate-200">
             <Link to="/groceries">Groceries</Link>
           </li>
-          <li>Cart</li>
+          <li className="px-4 rounded-md bg-white p-1 m-1 hover:bg-slate-200">
+            Cart
+          </li>
 
           <button
-            className="login-btn"
+            className="button rounded-md bg-white p-1 m-1 hover:bg-slate-200"
             //NOTE : onClick={ANONYMOUS FUNCTION}
             onClick={() => {
               btnVal === "login" ? setbtnVal("logout") : setbtnVal("login");
