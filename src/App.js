@@ -9,13 +9,16 @@ import {
   Outlet,
   Link,
 } from "react-router-dom";
-import About from "./Components/About";
+//import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
 //import Groceries from "./Components/Groceries";
 
 const Groceries = lazy(() => import("./Components/Groceries"));
+
+const About = lazy(() => import("./Components/About"));
+
 const AppLayout = () => {
   return (
     <div className="App">
@@ -51,7 +54,11 @@ const appRouter = createBrowserRouter([
       },
       {
         path: "/about",
-        element: <About />,
+        element: (
+          <Suspense fallback={<h1>Loading....</h1>}>
+            <About />
+          </Suspense>
+        ),
       },
       {
         path: "/contact",
