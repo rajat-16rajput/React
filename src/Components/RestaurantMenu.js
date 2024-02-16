@@ -4,8 +4,10 @@ import { MENU_API } from "../Utils/constants";
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
+
 const RestaurantMenu = () => {
   const { resId } = useParams();
+  const [showIndex, setShowIndex] = useState(null);
 
   //used a custom hook useRestaurantMenu to fetch the data from the api
   const resInfo = useRestaurantMenu(resId);
@@ -37,29 +39,17 @@ const RestaurantMenu = () => {
           {areaName} - {cuisines.join(",")} - {costForTwoMessage}
         </h2>
         <div>
-          {categories.map((category) => (
+          {categories.map((category, index) => (
             //The ?. syntax ensures that if category is null or undefined, the expression will short-circuit and return undefined. Similarly, if category.card is null or undefined, the expression will return undefined without causing an error. This prevents "cannot read property 'card' of undefined" type errors.
+
             <RestaurantCategory
               key={category?.card?.card?.title}
               data={category?.card?.card}
+              showItems={index === showIndex ? true : false}
+              setShowIndex={() => setShowIndex(index)}
             />
           ))}
         </div>
-        {/* <h3 className="font-medium">Menu</h3> */}
-        {/* {console.log("itemCards:", itemCards)}
-        {itemCards.map((item) => (
-          <li className="font-serif" key={item.card.info.id}>
-            {item.card.info.name} -
-            {"Rs. " +
-              (item.card.info.price / 100 || item.card.info.defaultPrice / 100)}
-          </li>
-        ))} */}
-
-        {/* <ul>{itemCards.map((item) => ({ name: item.card.info.name }))}</ul> */}
-        {/* <h1>{name}</h1>
-        <h3>{itemCards[0].card.info.name}</h3>
-        <h3>{itemCards[1].card.info.name}</h3>
-        <h3>{itemCards[2].card.info.name}</h3> */}
       </div>
     </>
   );
