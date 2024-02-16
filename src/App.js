@@ -25,7 +25,6 @@ const AppLayout = () => {
       <Header />
       {/*Replaced by the child route. The "dynamic outlet" will render the appropriate child component based on the current route. */}
       <Outlet />
-      <Footer />
     </div>
   );
 };
