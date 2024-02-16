@@ -11,9 +11,9 @@ const Body = () => {
 
   //console.log("listofHotels : ", listofHotels);
   //withOpenLabel is a HOC which contains Card as a parameter. It will return us a new component which has a label inside it
-  const CardPromoted = withOpenLabel(Card);
+  const CardOpen = withOpenLabel(Card);
 
-  console.log({ listofHotels });
+  //console.log({ listofHotels });
   //useEffect always contain a callBack function and a dependency array
   useEffect(() => {
     fetchData();
@@ -88,9 +88,9 @@ const Body = () => {
         {/* displaying the searchlist */}
         {searchList.map((resObj) => (
           <Link key={resObj.info.id} to={"/restaurant/" + resObj.info.id}>
-            {/* If the restaurant is promoted add promoted label to it */}
+            {/* If the restaurant is Open add Open label to it */}
             {resObj.info.isOpen ? (
-              <CardPromoted resObj={resObj} />
+              <CardOpen resObj={resObj} />
             ) : (
               <Card resObj={resObj} />
             )}
