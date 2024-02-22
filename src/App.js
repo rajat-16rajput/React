@@ -2,30 +2,37 @@ import React, { lazy, Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import Header from "./Components/Header";
 import Body from "./Components/Body";
-import Footer from "./Components/Footer";
+
 import {
   createBrowserRouter,
   RouterProvider,
   Outlet,
   Link,
 } from "react-router-dom";
-//import About from "./Components/About";
+import About from "./Components/About";
 import Contact from "./Components/Contact";
 import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
+import UserInfo from "./Utils/UserInfo";
+import Cart from "./Components/Cart";
 //import Groceries from "./Components/Groceries";
-
+import appStore from "./Utils/appStore";
+import { Provider } from "react-redux";
 const Groceries = lazy(() => import("./Components/Groceries"));
 
 const About = lazy(() => import("./Components/About"));
 
 const AppLayout = () => {
   return (
-    <div className="App">
-      <Header />
-      {/*Replaced by the child route. The "dynamic outlet" will render the appropriate child component based on the current route. */}
-      <Outlet />
-    </div>
+    <Provider store={appStore}>
+      {/* <UserInfo.Provider value={{ name: "Virat" }}> */}
+      <div className="App">
+        <Header />
+        {/*Replaced by the child route. The "dynamic outlet" will render the appropriate child component based on the current route. */}
+        <Outlet />
+      </div>
+      {/* </UserInfo.Provider> */}
+    </Provider>
   );
 };
 
@@ -67,6 +74,10 @@ const appRouter = createBrowserRouter([
         //dyanamic routing ----> /restaurant/:resId<-- this value will be dyanamic
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
+      },
+      {
+        path: "/cart",
+        element: <Cart />,
       },
     ],
   },

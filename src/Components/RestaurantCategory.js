@@ -40,7 +40,7 @@ import ItemList from "./ItemList";
 
 const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
   console.log({ data });
-  const [isItemListVisible, setIsItemListVisible] = useState(false);
+  const [isItemListVisible, setIsItemListVisible] = useState(null);
   const handleClick = () => {
     console.log("Clicked");
     //what value gets passsed in the setShowIndex based on the click?
