@@ -1,6 +1,10 @@
+import { useContext } from "react";
+import UserInfo from "../Utils/UserInfo";
+
 const Card = (props) => {
   const { resObj } = props;
   //console.log({ props });
+  const dataUser = useContext(UserInfo);
   const { name, cuisines, avgRating, cloudinaryImageId, locality } =
     resObj?.info;
   return (
@@ -18,6 +22,7 @@ const Card = (props) => {
       <h3>{locality}</h3>
       <h4> {cuisines.join(" ")}</h4>
       <h4>{avgRating} star</h4>
+      <h4>{dataUser.name}</h4>
     </div>
   );
 };
