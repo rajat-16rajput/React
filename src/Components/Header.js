@@ -20,8 +20,8 @@ const Header = () => {
     <div className="flex justify-between bg-orange-200 shadow-md mx-2">
       <div className="logo-container">
         <img
-          className="w-36"
-          src="https://image.similarpng.com/very-thumbnail/2021/09/Good-food-logo-design-on-transparent-background-PNG.png"
+          className="w-40 h-25 m-2 p-2"
+          src="https://img.freepik.com/free-vector/hand-drawn-design-world-food-day_23-2148648454.jpg"
           alt="Header Logo"
         ></img>
       </div>

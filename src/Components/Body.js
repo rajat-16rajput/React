@@ -13,13 +13,7 @@ const Body = () => {
   //withOpenLabel is a HOC which contains Card as a parameter. It will return us a new component which has a label inside it
   const CardOpen = withOpenLabel(Card);
 
-  //console.log({ listofHotels });
-  //useEffect always contain a callBack function and a dependency array
-  useEffect(() => {
-    fetchData();
-  }, []);
-
-  fetchData = async () => {
+  const fetchData = async () => {
     const data = await fetch(SWIGGY_API);
     const json = await data.json();
 
@@ -31,6 +25,12 @@ const Body = () => {
     );
     //console.log(listofHotels);
   };
+
+  //console.log({ listofHotels });
+  //useEffect always contain a callBack function and a dependency array
+  useEffect(() => {
+    fetchData();
+  }, []);
 
   const onlineStatus = useOnlineStatus();
   if (onlineStatus === "false")
