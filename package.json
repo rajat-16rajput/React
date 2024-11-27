@@ -25,12 +25,13 @@
     "@babel/core": "^7.23.9",
     "@babel/preset-env": "^7.23.9",
     "@babel/preset-react": "^7.23.3",
+    "@parcel/optimizer-swc": "^2.13.0",
     "@testing-library/jest-dom": "^6.4.2",
     "@testing-library/react": "^14.2.1",
     "babel-jest": "^29.7.0",
     "jest": "^29.7.0",
     "jest-environment-jsdom": "^29.7.0",
-    "parcel": "^2.11.0",
+    "parcel": "^2.13.0",
     "postcss": "^8.4.35",
     "process": "^0.11.10",
     "tailwindcss": "^3.4.1"
@@ -38,8 +39,8 @@
   "dependencies": {
     "@reduxjs/toolkit": "^2.2.1",
     "eslint-plugin-react-hooks": "^5.0.0-canary-47beb96cc-20240222",
-    "react": "^18.2.0",
-    "react-dom": "^18.2.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
     "react-redux": "^9.1.0",
     "react-router-dom": "^6.22.0"
   },

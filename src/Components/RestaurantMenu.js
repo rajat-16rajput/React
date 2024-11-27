@@ -1,6 +1,6 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import useRestaurantMenu from "../Utils/useRestaurantMenu";
-import { MENU_API } from "../Utils/constants";
+
 import Shimmer from "./Shimmer";
 import { useParams } from "react-router-dom";
 import RestaurantCategory from "./RestaurantCategory";
@@ -8,20 +8,17 @@ import RestaurantCategory from "./RestaurantCategory";
 const RestaurantMenu = () => {
   const { resId } = useParams();
   const [showIndex, setShowIndex] = useState(null);
-
+  // console.log("resId: " + resId);
   //used a custom hook useRestaurantMenu to fetch the data from the api
   const resInfo = useRestaurantMenu(resId);
 
-  console.log({ resInfo });
+  // console.log({ resInfo });
 
   if (resInfo === null) return <Shimmer />;
 
   const { name, areaName, cuisines, costForTwoMessage } =
     resInfo?.cards[2]?.card?.card?.info;
-  console.log(name, areaName);
-  const { itemCards } =
-    resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards[3]?.card?.card;
-  //console.log({ itemCards });
+  // console.log(name, areaName);
 
   const categories =
     resInfo?.cards[4]?.groupedCard?.cardGroupMap?.REGULAR?.cards.filter(
@@ -29,7 +26,7 @@ const RestaurantMenu = () => {
         c?.card?.card?.["@type"] ===
         "type.googleapis.com/swiggy.presentation.food.v2.ItemCategory"
     );
-  console.log({ categories });
+  // console.log({ categories });
 
   return (
     <>
@@ -40,7 +37,11 @@ const RestaurantMenu = () => {
         </h2>
         <div>
           {categories.map((category, index) => (
-            //The ?. syntax ensures that if category is null or undefined, the expression will short-circuit and return undefined. Similarly, if category.card is null or undefined, the expression will return undefined without causing an error. This prevents "cannot read property 'card' of undefined" type errors.
+            //The ?. syntax ensures that if category is null or undefined,
+            // the expression will short-circuit and return undefined.
+            // Similarly, if category.card is null or undefined,
+            //the expression will return undefined without causing an error.
+            //This prevents "cannot read property 'card' of undefined" type errors.
 
             <RestaurantCategory
               key={category?.card?.card?.title}

@@ -9,23 +9,23 @@ import Error from "./Components/Error";
 import RestaurantMenu from "./Components/RestaurantMenu";
 import UserInfo from "./Utils/UserInfo";
 import Cart from "./Components/Cart";
-//import Groceries from "./Components/Groceries";
+import Groceries from "./Components/Groceries";
 import appStore from "./Utils/appStore";
 import { Provider } from "react-redux";
-const Groceries = lazy(() => import("./Components/Groceries"));
 
-const About = lazy(() => import("./Components/About"));
+//const About = lazy(() => import("./Components/About"));
+//const Groceries = lazy(() => import("./Components/Groceries"));
 
 const AppLayout = () => {
   return (
     <Provider store={appStore}>
-      {/* <UserInfo.Provider value={{ name: "Virat" }}> */}
-      <div className="App">
-        <Header />
-        {/*Replaced by the child route. The "dynamic outlet" will render the appropriate child component based on the current route. */}
-        <Outlet />
-      </div>
-      {/* </UserInfo.Provider> */}
+      <UserInfo.Provider value={{ name: "Virat" }}>
+        <div className="App">
+          <Header />
+
+          <Outlet />
+        </div>
+      </UserInfo.Provider>
     </Provider>
   );
 };
@@ -40,17 +40,18 @@ const appRouter = createBrowserRouter([
 
     //creating children routes which will dyanamically map and one of them will replace to the <Outlet/> component based on the path
     children: [
-      {
-        path: "/groceries",
-        element: (
-          <Suspense fallback={<>Loading...</>}>
-            <Groceries />
-          </Suspense>
-        ),
-      },
+      // {
+      //   path: "/groceries",
+      //   element: (
+      //     <Suspense fallback={<>Loading...</>}>
+      //       <Groceries />
+      //     </Suspense>
+      //   )
+      // },
       {
         path: "/",
         element: <Body />,
+        errorElement: <Error />
       },
       {
         path: "/about",
@@ -59,22 +60,26 @@ const appRouter = createBrowserRouter([
             <About />
           </Suspense>
         ),
+        errorElement: <Error />
       },
       {
         path: "/contact",
         element: <Contact />,
+        errorElement: <Error />
       },
       {
         //dyanamic routing ----> /restaurant/:resId<-- this value will be dyanamic
         path: "/restaurant/:resId",
         element: <RestaurantMenu />,
+        errorElement: <Error />
       },
       {
         path: "/cart",
         element: <Cart />,
-      },
-    ],
-  },
+        errorElement: <Error />
+      }
+    ]
+  }
 ]);
 
 const root = ReactDOM.createRoot(document.getElementById("root")); // NOTE : document.getElementById

@@ -1,7 +1,7 @@
 import { createContext } from "react";
 
 const UserInfo = createContext({
-  // name: "Rajat",
+  name: "All rights reserved",
 });
 
 export default UserInfo;

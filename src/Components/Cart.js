@@ -1,13 +1,18 @@
 import { useDispatch, useSelector } from "react-redux";
 import ItemList from "./ItemList";
-import { clearCart } from "../Utils/cartSlice";
+import { clearCart, removeItem } from "../Utils/cartSlice";
 
 const Cart = () => {
   const cartItems = useSelector((store) => store.cart.items);
-  console.log(cartItems);
+  // console.log(cartItems);
   const dispatch = useDispatch();
+
   const handleClick = () => {
     dispatch(clearCart());
+  };
+
+  const handleRemove = () => {
+    dispatch(removeItem());
   };
 
   return (
@@ -20,6 +25,14 @@ const Cart = () => {
         }}
       >
         ClearCart
+      </button>
+      <button
+        className="p-2 m-2 border bg-black text-white"
+        onClick={() => {
+          handleRemove();
+        }}
+      >
+        Remove Item
       </button>
       <div className="w-1/2 m-auto">
         <ItemList items={cartItems}></ItemList>

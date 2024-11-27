@@ -30,7 +30,7 @@
 //         {isItemListVisible && <ItemList items={data.itemCards} />}
 //       </div>
 //     </div>
-//   );
+//   );6
 // };
 
 // export default RestaurantCategory;
@@ -39,14 +39,15 @@ import { useState } from "react";
 import ItemList from "./ItemList";
 
 const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
-  console.log({ data });
+  // console.log({ data });
   const [isItemListVisible, setIsItemListVisible] = useState(null);
-  const handleClick = () => {
-    console.log("Clicked");
+
+  function handleClick() {
+    // console.log("Restaurant category Clicked");
     //what value gets passsed in the setShowIndex based on the click?
     setIsItemListVisible(!isItemListVisible);
     setShowIndex();
-  };
+  }
 
   return (
     <div className="w-1/2 my-8 shadow-xl m-auto bg-blue-100  px-4 py-2 rounded-lg">
@@ -61,8 +62,8 @@ const RestaurantCategory = ({ data, showItems, setShowIndex }) => {
         <span>🔽</span>
       </div>
       {/* Body */}
-      <div className="bg-green-200">
-        {" "}
+      <div className="bg-green-400">
+        {/* {" "} */}
         {/* Conditional rendering to display ItemList component */}
         {showItems ? <ItemList items={data.itemCards} /> : null}
       </div>

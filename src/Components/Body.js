@@ -1,9 +1,9 @@
 import { SWIGGY_API } from "../Utils/constants";
 import { useState, useEffect } from "react";
-
 import Card, { withOpenLabel } from "./Card";
 import { Link } from "react-router-dom";
 import useOnlineStatus from "../Utils/useOnlineStatus";
+import Shimmer from "./Shimmer";
 const Body = () => {
   const [listofHotels, setListOfHotels] = useState([]);
   const [searchText, setSearchText] = useState("");
@@ -19,13 +19,15 @@ const Body = () => {
     fetchData();
   }, []);
 
-  fetchData = async () => {
+  const fetchData = async () => {
+    console.log(SWIGGY_API);
     const data = await fetch(SWIGGY_API);
     const json = await data.json();
 
     setListOfHotels(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
+
     setSearchList(
       json?.data?.cards[4]?.card?.card?.gridElements?.infoWithStyle?.restaurants
     );
@@ -36,6 +38,18 @@ const Body = () => {
   if (onlineStatus === "false")
     return <h1>No internet connected, please check your connection</h1>;
 
+  if (searchList.length === 0) {
+    return (
+      <div>
+        <h1 className="font-bold text-3xl flex justify-center py-4">
+          Please wait while we are getting things ready for you
+        </h1>
+        <div>
+          <Shimmer />
+        </div>
+      </div>
+    );
+  }
   return (
     <>
       <div className="body">
@@ -51,6 +65,7 @@ const Body = () => {
                 setSearchText(e.target.value); //component will re render with every letter typed
               }}
             ></input>
+
             <button
               className="px-4 py-1 bg-green-200 m-4 rounded-lg"
               onClick={() => {
@@ -66,6 +81,7 @@ const Body = () => {
               Search
             </button>
           </div>
+
           <div className="search ml-0 pl-0 flex items-center">
             <button
               className="px-4 py-2 bg-blue-200 rounded-lg"
@@ -84,6 +100,7 @@ const Body = () => {
           </div>
         </div>
       </div>
+
       <div className="card-container flex flex-wrap">
         {/* displaying the searchlist */}
         {searchList.map((resObj) => (

@@ -11,6 +11,7 @@ const ItemList = ({ items }) => {
   const handleClick = (item) => {
     //dispatch is a function which triggers an action
     console.log(item);
+    alert("Item added to the cart");
     dispatch(addItem(item));
   };
 
